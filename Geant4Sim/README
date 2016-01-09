@@ -1,0 +1,84 @@
+Bried description:
+==================
+Tested for Geant4.10.01.p01. It needs minimum Geant4.10.
+
+usage:
+./Sim run.mac
+./Sim run.mac par    (for importance sampling)
+
+
+The vis.mac and run.mac are included. The filename pattern (without .root) 
+is set in the run.mac last part. It is used for output root file. The root file 
+writing is set by flags in SteppingAction.cc. Also output can be written as text file
+for testing/troubleshooting. Neutron/detector output can be selected in root and/or text mode. 
+
+There are multiple geometries possible. The geometry is set in  DetectorConstruction.cc , line ~70.
+Also, within the SNS geometry, different settings are possible by flags in SNSTargetDetector.cc
+
+
+There are regions set in the code, as seen in run.mac. If the regions are in the 
+interesting regions of the geometry, don't ignore them. The default set in SNSTargetDetector.cc is
+overwritten by that in the macro. If macro entry is not used, the default is used.
+
+
+
+NOTE: To run parallel sampling, use the keyword par. 
+
+Set the number of volumes and geometry in SNSParallelTargetDetector.cc. 
+Run importance sampling by
+./Sim run.mac par
+The messenger option needs change in design, 
+because, the importance sampling called from the main.cc doesn't go together with 
+/run/initialize in macro. A seperate physicslist class is to be done.
+
+
+For neutrons, the sensitive detector is not used, but the SteppingAction.cc is used, 
+to write the root files, and text output. There are several flags in that to select what is needed.
+The most important point in using parallel geometry is, long run time for a few jobs. 
+Don't kill any job !.
+
+In importance sampling mode, the Transportation is called CoupledTransportation.
+Also, between volumes, the volume name is the default one. So, when selecting volumes
+for multiple volumes based on the name, the boundary can be missed out. 
+This is important when killing particles bsed on (excluding) name. It could kill 
+particles on the boundary. 
+
+
+The importance sampling is implemented by using parallel volumes. The main volumes are different 
+from parallel ones. It is not multi-threading or parallel processing. 
+This is because multi-threading is not useful, unless we are lazy to 
+submit different jobs, because each event is  run seperately. 
+Only events can be parallelized, no track level parallelism in Geant4 yet. 
+So, it is not useful to use MPI (openmpi, distributed), multi-threading,
+or shared memory option (openmp).
+
+
+Uses cmake, and the CMakeLists.txt is included in the source. Make changes as needed. 
+The name is 'Sim', you may change it in that.
+The method of compilation is (as given in the Geant4 site):
+cmake -DGeant4_DIR=Programs/geant4.10.00.p01/lib64/Geant4-10.0.1    <source_dir>
+
+Multithreading option is not used in the Main.cc, it can be enabled. It is not worth!.
+
+
+Any run can be reproduced by setting seeds in RunAction.cc. The seeds are output in each run
+ --------- Ranecu engine status ---------
+ Initial seed (index) = 57
+ Current couple of seeds = 1998243664, 1488315494
+
+Care should be taken to unset the flags in RunAction.cc, if not re-run, after an instance of re-run.  
+ 
+There is also option for rerun of any event, using the event seeds option in SteppingAction.cc
+and subsequent use of it in EventAction.cc. This method is not working for the current version of G4
+(don't know why, it was working for the previous version). This is very useful 
+for visualizing the interesting event.
+
+For the SNS basement detector, the analysis of the result is done seperately in the case of
+scintillation detector. But for seperate SNSSD.cc, that is included in it. 
+
+
+ 
+ 
+ 
+ 
+
