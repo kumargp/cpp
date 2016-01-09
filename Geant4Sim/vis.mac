@@ -1,0 +1,238 @@
+/vis/open OGLSXm  #600x600-0+0 #laptop
+#/vis/open OGLIXm  #office
+#/vis/open OGLIX
+
+/vis/ogl/set/displayListLimit 5000000
+
+#/vis/ogl/set/eventsDrawInterval [interval]
+#/vis/ogl/set/endTime [end-time] [end-time-unit] [time-range] [time-range-unit]
+#/vis/ogl/set/printMode pixmap
+#/vis/ogl/set/printSize 1000 1000
+#/vis/ogl/printEPS
+
+#/vis/open HepRepXML #use for jas
+#/vis/open DAWNFILE
+#/vis/open RayTracerX
+#/vis/open HepRepFile
+
+/vis/drawVolume
+
+# Disable auto refresh and quieten vis messages whilst scene and
+# trajectories are established:
+/vis/viewer/set/autoRefresh true #false
+/vis/verbose errors
+
+/vis/scene/add/hits
+/vis/scene/add/trajectories
+/vis/scene/endOfEventAction accumulate
+#/vis/scene/add/userAction
+/vis/scene/add/axes 0 0 0 1 m
+##/vis/scene/add/scale 10 m
+
+#/vis/viewer/set/viewpointVector 0.5 0.5 0
+#/vis/viewer/set/background white
+#/vis/viewer/set/projection perspective 10 deg
+
+#To add attributes to each point on a trajectory, use:
+#/vis/heprep/addPointAttributes 1
+#/vis/viewer/set/hiddenMarker true
+/vis/viewer/set/upVector 0 0 1
+/vis/viewer/set/viewpointThetaPhi 90 0 #70 0
+/vis/viewer/zoom 4.0
+#/vis/viewer/set/upThetaPhi 
+#/vis/viewer/set/auxiliaryEdge    #view sphere
+#/vis/geometry/set/forceSolid
+/vis/viewer/set/style wireframe
+#/vis/viewer/set/style surface
+/vis/geometry/set/visibility World 0 false
+/vis/geometry/set/visibility SNSTargetLogical 0 false
+#/vis/touchable/set/daughtersInvisible true
+#/vis/geometry/set/visibility HgSteelBoxLog 0 false
+#/vis/geometry/set/visibility UpperBePlugLog 0 false
+#/vis/geometry/set/visibility LowerBePlugLog 0 false
+#/vis/geometry/set/visibility InnerSteelD2O_1Log 0 false
+#/vis/geometry/set/visibility InnerSteelD2O_2Log 0 false
+#/vis/geometry/set/visibility OuterSteelLog 0 false
+#/vis/geometry/set/visibility MonoSteelLog 0 false
+#/vis/geometry/set/visibility OuterProtonBoxConcreteLog 0 false
+#/vis/geometry/set/visibility OuterProtonBoxSteelBoxLog 0 false
+#/vis/geometry/set/visibility OuterProtonBoxHDBoxLog 0 false
+#/vis/geometry/set/visibility OuterProtonBoxSteelInOuterLog 0 false
+#/vis/geometry/set/visibility BulkNBeamConcShieldLog 0 false
+#/vis/geometry/set/visibility BasementLog 0 false
+#/vis/geometry/set/visibility TunnelWallLog 0 false
+#/vis/geometry/set/visibility basementRoofTopLog 0 false
+#/vis/geometry/set/visibility basementRoofStoneLog 0 false
+#/vis/geometry/set/visibility basementRoofInLog 0 false
+#/vis/geometry/set/visibility DetPbLog  0 false
+#/vis/geometry/set/visibility DetPolyLog  0 false
+#/vis/geometry/set/visibility DetCsILog  0 false
+#/vis/geometry/set/visibility AirVolumeLog 0 false
+
+/vis/viewer/addCutawayPlane 0 0 0 m 1 0 0 
+
+/vis/scene/add/logicalVolume SNSParallelWorld
+#/vis/geometry/set/visibility SNSParallelWorld 0 false
+/vis/viewer/flush
+
+#/vis/scene/add/eventID 
+#/vis/viewer/clear
+
+
+/physics_engine/neutron/timeLimit 1.0 s
+
+/gps/verbose 2
+
+#/gps/source/intensity 0.5
+
+
+/gps/particle proton
+/gps/ene/mono 940 MeV
+
+/gps/pos/type Beam   #Plane    #Point
+/gps/pos/rot1 1 0 0   # the incident on x-z
+/gps/pos/rot2 0 0 1   #do same in ang
+
+/gps/pos/shape Circle #Ellipse #Annulus, Circle, Square or Rectangle
+/gps/pos/centre 0. -0.3  0. m
+#/gps/pos/halfy 4.9 cm 
+#/gps/pos/halfx 21. cm 
+/gps/pos/sigma_y 1.75 cm  #3.5cm = 2. sigma. Total footprint  7x20 cm2 
+/gps/pos/sigma_x 5. cm   #10.0 cm= 2. sigma
+ 
+
+/gps/ang/type beam2d
+/gps/direction 0 1 0
+#/gps/ang/sigma_y 5. degree
+#/gps/ang/sigma_x 10. degree
+/gps/ang/rot1 0 0 1  # travel along y axis
+/gps/ang/rot2 1 0 0 #do same in pos
+# geant4.10.01_src/examples/extended/eventgenerator/exgps/macros/30, 18, 19, 23..
+
+
+/gps/source/add 10000.00001
+
+
+/gps/verbose 2
+/gps/particle proton
+/gps/ene/mono 940 MeV
+
+/gps/pos/type Beam   #Plane    #Point
+/gps/pos/rot1 1 0 0   # the incident on x-z
+/gps/pos/rot2 0 0 1   #do same in ang
+
+/gps/pos/shape Circle #Annulus #Circle #
+/gps/pos/centre 0. -24.0  0. m
+/gps/pos/radius 2. cm
+ 
+/gps/ang/type iso #beam2d #
+/gps/ang/rot1 1 0 0 #do same in pos
+/gps/ang/rot2 0 0 1  # travel along y axis
+#/gps/ang/sigma_r 45 deg
+
+/gps/ang/mintheta 0. deg 
+/gps/ang/maxtheta 15. deg 
+#cone around, phi from 0 to 2pi
+
+
+#/gps/source/multiplevertex true #multiple particles with the same event call
+/gps/source/list
+/gps/source/show
+
+#third source
+
+/gps/source/add 10000.00001
+
+
+/gps/verbose 2
+/gps/particle proton
+/gps/ene/mono 940 MeV
+
+/gps/pos/type Beam   #Plane    #Point
+/gps/pos/rot1 1 0 0   # the incident on x-z
+/gps/pos/rot2 0 0 1   #do same in ang
+
+/gps/pos/shape Circle #Annulus #Circle #
+/gps/pos/centre 0. -16.5  0. m
+/gps/pos/radius 2. cm
+ 
+/gps/ang/type iso #beam2d #
+/gps/ang/rot1 1 0 0 #do same in pos
+/gps/ang/rot2 0 0 1  # travel along y axis
+#/gps/ang/sigma_r 45 deg
+
+/gps/ang/mintheta 0. deg 
+/gps/ang/maxtheta 15. deg 
+#cone around, phi from 0 to 2pi
+
+
+#/gps/source/multiplevertex true #multiple particles with the same event call
+/gps/source/list
+/gps/source/show
+
+
+#fourth source
+
+/gps/source/add 10000.00001
+
+
+/gps/verbose 2
+/gps/particle proton
+/gps/ene/mono 940 MeV
+
+/gps/pos/type Beam   #Plane    #Point
+/gps/pos/rot1 1 0 0   # the incident on x-z
+/gps/pos/rot2 0 0 1   #do same in ang
+
+/gps/pos/shape Circle #Annulus #Circle #
+/gps/pos/centre 0. -15.5  0. m
+/gps/pos/radius 2. cm
+ 
+/gps/ang/type iso #beam2d #
+/gps/ang/rot1 1 0 0 #do same in pos
+/gps/ang/rot2 0 0 1  # travel along y axis
+#/gps/ang/sigma_r 45 deg
+
+/gps/ang/mintheta 0. deg 
+/gps/ang/maxtheta 15. deg 
+#cone around, phi from 0 to 2pi
+
+
+#/gps/source/multiplevertex true #multiple particles with the same event call
+/gps/source/list
+/gps/source/show
+
+
+#fifth source
+
+/gps/source/add 10000.00001
+
+
+/gps/verbose 2
+/gps/particle proton
+/gps/ene/mono 940 MeV
+
+/gps/pos/type Beam   #Plane    #Point
+/gps/pos/rot1 1 0 0   # the incident on x-z
+/gps/pos/rot2 0 0 1   #do same in ang
+
+/gps/pos/shape Circle #Annulus #Circle #
+/gps/pos/centre 0. -9.5  0. m
+/gps/pos/radius 2. cm
+ 
+/gps/ang/type iso #beam2d #
+/gps/ang/rot1 1 0 0 #do same in pos
+/gps/ang/rot2 0 0 1  # travel along y axis
+#/gps/ang/sigma_r 45 deg
+
+/gps/ang/mintheta 0. deg 
+/gps/ang/maxtheta 15. deg 
+#cone around, phi from 0 to 2pi
+
+
+#/gps/source/multiplevertex true #multiple particles with the same event call
+/gps/source/list
+/gps/source/show
+
+
+/run/beamOn 1

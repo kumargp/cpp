@@ -1,0 +1,117 @@
+
+/process/verbose 1
+/process/em/verbose 1
+/process/eLoss/verbose 1
+
+##/particle/verbose 1
+/run/verbose 1
+##/event/verbose 1
+/cuts/verbose 1
+
+
+#/Sim/stepping/printProcess true
+#/Sim/stepping/printProcessPerParticle true
+#/Sim/stepping/printEnergy true
+#/Sim/hits/printParticleEnergy proton
+#/Sim/hits/printParticleEnergy all
+#/Sim/det/detector  SNSDet #SNSTargetDetector #
+#/run/reinitializeGeometry
+#/process/eLoss/StepFunction 0.2 1 um
+#/Sim/particle/DistrBoxSize 1 1 1 m
+
+#/analysis/ ...
+
+#/process/em/setSecBiasing eIoni World 0.3 2 MeV
+#/run/setCutForAGivenParticle proton 1. mm # e- e+ gamma proton CAUTION
+#/random/setSeeds x y
+
+
+/process/eLoss/fluct false
+/run/particle/applyCuts all  # gamma,e-,e+
+/process/em/applyCuts  true
+/run/getCutForAGivenParticle  proton #gamma,e-,e+
+/run/getCutForAGivenParticle  gamma
+/run/getCutForAGivenParticle  e-
+/run/getCutForAGivenParticle  e+
+
+#/Sim/parallel/parallelNum 25
+
+
+##/tracking/verbose 1
+/run/printProgress 1000
+
+/run/setCut 1. mm  
+/run/setCutForRegion BasementIn 10. mm #bulk shield too
+/run/setCutForRegion ProtBox 10. mm 
+/run/setCutForRegion BasementLayer 1. mm #bulk shield too
+/run/setCutForRegion Det_CsI 10. um #low cut
+
+#/physics_engine/neutron/energyLimit 5. MeV
+#/Sim/Kill/SetGammaThreshold 5. MeV
+#/Sim/Kill/SetNeutronThreshold 1. MeV
+/physics_engine/neutron/timeLimit 1.0 s
+
+
+#first source
+#/gps/particle proton
+#/gps/ene/mono 940 MeV
+#/gps/pos/type Beam   #Plane    #Point
+#/gps/pos/rot1 1 0 0   # the incident on x-z
+#/gps/pos/rot2 0 0 1   #do same in ang
+#/gps/pos/shape Circle #Ellipse #Annulus, Circle, Square or Rectangle
+#/gps/pos/centre 0. -0.3  0. m
+#/gps/pos/sigma_y 1.75 cm  #3.5cm = 2. sigma. Total footprint  7x20 cm2 
+#/gps/pos/sigma_x 5. cm   #10.0 cm= 2. sigma
+#/gps/ang/type beam2d
+#/gps/ang/rot1 1 0 0  # travel along y axis
+#/gps/ang/rot2 0 0 1 #do same in pos
+##/gps/ang/sigma_y 1. degree
+##/gps/ang/sigma_x 2. degree
+# geant4.10.01_src/examples/extended/eventgenerator/exgps/macros/30, 18, 19, 23..
+
+
+/gps/verbose 2
+/gps/particle neutron
+
+/gps/pos/type Beam   #Plane    #Point
+/gps/pos/rot1 1 0 0   # the incident on x-z
+/gps/pos/rot2 0 0 1   #do same in ang
+/gps/pos/shape Circle #Annulus #Circle #
+/gps/pos/centre 0. -0.5  0. m
+/gps/pos/radius 5. cm
+/gps/ang/type iso #beam2d #
+/gps/ang/rot1 1 0 0 #do same in pos
+/gps/ang/rot2 0 0 1  # travel along y axis
+###/gps/ang/sigma_r 45 deg
+/gps/ang/mintheta 0. deg 
+/gps/ang/maxtheta 15. deg 
+/gps/ene/type Arb
+/gps/hist/type arb
+#x lower-edge of bin,y area of  bin
+/gps/hist/point 1.	0.2
+/gps/hist/point 5.	0.2
+/gps/hist/point 10.	0.3
+/gps/hist/point 15.	0.5
+/gps/hist/point 20.	0.5
+/gps/hist/point 25.	0.8
+/gps/hist/point 30.	0.8
+/gps/hist/point 35.	0.9
+/gps/hist/point 40.	1.
+/gps/hist/point 50.	1.
+/gps/hist/point 60.	1.
+/gps/hist/point 70.	1.
+/gps/hist/point 80.	1.
+/gps/hist/point 90.	1.
+/gps/hist/point 100.	1.
+/gps/hist/point 120.	1.
+/gps/hist/point 170.	1.
+/gps/hist/point 200.	1.
+/gps/hist/inter Lin
+
+
+/gps/source/list
+/gps/source/show
+
+/Sim/FileNamePattern arb
+
+/run/beamOn 1000

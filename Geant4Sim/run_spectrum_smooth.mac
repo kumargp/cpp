@@ -1,0 +1,147 @@
+
+/process/verbose 1
+/process/em/verbose 1
+/process/eLoss/verbose 1
+
+##/particle/verbose 1
+/run/verbose 1
+##/event/verbose 1
+/cuts/verbose 1
+
+
+
+/process/eLoss/fluct false
+/run/particle/applyCuts all  # gamma,e-,e+
+/process/em/applyCuts  true
+/run/getCutForAGivenParticle  proton #gamma,e-,e+
+/run/getCutForAGivenParticle  gamma
+/run/getCutForAGivenParticle  e-
+/run/getCutForAGivenParticle  e+
+
+
+##/tracking/verbose 1
+/run/printProgress 1000
+
+/run/setCut 10. um  
+
+/physics_engine/neutron/timeLimit 1.0 s
+
+
+
+/gps/verbose 1
+/gps/particle proton
+##/gps/ene/mono 940 MeV
+/gps/pos/type Beam   #Plane    #Point
+/gps/pos/rot1 1 0 0   # the incident on x-z
+/gps/pos/rot2 0 0 1   #do same in ang
+/gps/pos/shape Circle #Annulus #Circle #
+/gps/pos/centre 0. -0.5  0. m
+/gps/pos/radius 6. cm
+/gps/ang/type iso #beam2d #
+/gps/ang/rot1 1 0 0 #do same in pos
+/gps/ang/rot2 0 0 1  # travel along y axis
+###/gps/ang/sigma_r 45 deg
+/gps/ang/mintheta 0. deg 
+/gps/ang/maxtheta 15. deg 
+# min max energy ?
+/gps/ene/type Arb
+/gps/hist/type arb
+
+#x lower-edge of bin inMeV,y weight
+ /gps/hist/point   0.830 	 18159 
+ /gps/hist/point   0.928 	 12298 
+ /gps/hist/point   1.048 	 8971 
+ /gps/hist/point   1.161 	 6918 
+ /gps/hist/point   1.274 	 5436 
+ /gps/hist/point   1.479 	 3892 
+ /gps/hist/point   1.866 	 2494 
+ /gps/hist/point   2.029 	 2110 
+ /gps/hist/point   2.312 	 1819 
+ /gps/hist/point   2.491 	 1539 
+ /gps/hist/point   2.785 	 1279 
+ /gps/hist/point   3.115 	 1144 
+ /gps/hist/point   3.582 	 950 
+ /gps/hist/point   4.005 	 850 
+ /gps/hist/point   4.315 	 804 
+ /gps/hist/point   4.736 	 790 
+ /gps/hist/point   5.103 	 790 
+ /gps/hist/point   5.549 	 775 
+ /gps/hist/point   6.034 	 733 
+ /gps/hist/point   6.623 	 681 
+ /gps/hist/point   7.406 	 669 
+ /gps/hist/point   8.053 	 598 
+ /gps/hist/point   8.922 	 535 
+ /gps/hist/point   9.702 	 506 
+ /gps/hist/point   10.164 	 461 
+ /gps/hist/point   10.950 	 428 
+ /gps/hist/point   11.908 	 405 
+ /gps/hist/point   12.475 	 362 
+ /gps/hist/point   13.440 	 312 
+ /gps/hist/point   14.752 	 269 
+ /gps/hist/point   15.600 	 232 
+ /gps/hist/point   16.192 	 208 
+ /gps/hist/point   16.964 	 176 
+ /gps/hist/point   17.939 	 146 
+ /gps/hist/point   18.476 	 131 
+ /gps/hist/point   19.659 	 115 
+ /gps/hist/point   20.060 	 97 
+ /gps/hist/point   21.081 	 89 
+ /gps/hist/point   22.606 	 78 
+ /gps/hist/point   24.393 	 72 
+ /gps/hist/point   27.661 	 75 
+ /gps/hist/point   29.205 	 86 
+ /gps/hist/point   30.597 	 99 
+ /gps/hist/point   31.075 	 108 
+ /gps/hist/point   33.845 	 123 
+ /gps/hist/point   34.108 	 139 
+ /gps/hist/point   34.428 	 151 
+ /gps/hist/point   36.013 	 179 
+ /gps/hist/point   37.788 	 216 
+ /gps/hist/point   39.222 	 240 
+ /gps/hist/point   40.711 	 280 
+ /gps/hist/point   42.717 	 312 
+ /gps/hist/point   43.453 	 344 
+ /gps/hist/point   47.252 	 382 
+ /gps/hist/point   49.504 	 438 
+ /gps/hist/point   51.864 	 439 
+ /gps/hist/point   55.875 	 518 
+ /gps/hist/point   60.572 	 546 
+ /gps/hist/point   66.691 	 590 
+ /gps/hist/point   73.541 	 618 
+ /gps/hist/point   84.174 	 612 
+ /gps/hist/point   92.389 	 612 
+ /gps/hist/point   106.736 	 572 
+ /gps/hist/point   115.349 	 490 
+ /gps/hist/point   124.658 	 420 
+ /gps/hist/point   129.590 	 371 
+ /gps/hist/point   134.717 	 318 
+ /gps/hist/point   144.463 	 233 
+ /gps/hist/point   154.914 	 179 
+ /gps/hist/point   162.298 	 142 
+ /gps/hist/point   167.415 	 114 
+ /gps/hist/point   174.039 	 92 
+ /gps/hist/point   182.335 	 73 
+ /gps/hist/point   189.549 	 58 
+ /gps/hist/point   195.525 	 47 
+ /gps/hist/point   200.131 	 35 
+ /gps/hist/point   209.670 	 25 
+ /gps/hist/point   215.611 	 18 
+ /gps/hist/point   217.966 	 11 
+ /gps/hist/point   219.664 	 14 
+ /gps/hist/point   221.719 	 7 
+ /gps/hist/point   224.838 	 6 
+ /gps/hist/point   225.888 	 3 
+ /gps/hist/point   228.355 	 2 
+ /gps/hist/point   230.135 	 1 
+
+ 
+ 
+/gps/hist/inter Exp #Lin doesn't work for smoothed
+
+
+/gps/source/list
+/gps/source/show
+
+/Sim/FileNamePattern arb
+
+/run/beamOn 1000
